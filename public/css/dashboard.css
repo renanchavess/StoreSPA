@@ -1,0 +1,41 @@
+.menu-bar{
+    height: 100vh;
+    
+    display: inline-block;
+    vertical-align: top;
+}
+
+.menu-bar:hover{
+    color: #ffffff;
+}
+
+.menu-bar ul{
+    list-style: none;
+    padding-inline-start: 20px;
+}
+
+.menu-bar a{
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.menu-icon{
+    height: 80px;
+    width: 100%;
+    font-size: 45px;
+    color: #ffffff;
+}
+
+.content-dashboard{
+    vertical-align: top;
+    display: inline-block;
+    height: 100vh;
+    padding: 30px;
+    overflow: scroll;
+}
+
+#app{
+    display: grid;
+    /* aqui eu defino que o Grid tem Duas colunas uma com width:auto e outra com 50px */
+    grid-template-columns: 240px auto; 
+}
