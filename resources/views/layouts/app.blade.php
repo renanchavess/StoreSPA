@@ -19,5 +19,6 @@
 
         <script src="https://kit.fontawesome.com/eb120e7855.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     </body>
 </html>

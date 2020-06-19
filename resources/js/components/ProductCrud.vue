@@ -20,43 +20,54 @@
             </div>
            
         </form>
-         <button type="button" class="btn btn-success" @click="save()" >Save</button>
-         <button type="button" class="btn btn-danger" @click="clean()" >Clean</button>
+        <button type="button" class="btn btn-success" @click="save()" >Save</button>
+        <button type="button" class="btn btn-danger" @click="clean()" >Clean</button>
 
-         <button type="button" class="btn btn-dark" @click="getProducts()" >Get List</button>
+        <button type="button" class="btn btn-dark" @click="getProducts()" >Get List</button>
 
-         <hr>
-
-         <table v-if=" this.products.length > 0" class="table table-striped table-condensed table-light table-hover">
-             <thead class="thead-dark">
-                 <tr>
-                     <th @click="sortBy('id')"><i :class="this.sort.id.class"></i>  Id</th>
-                     <th @click="sortBy('name')"><i :class="this.sort.name.class"></i> Name</th>
-                     <th @click="sortBy('price')"><i :class="this.sort.price.class"></i> Price</th>
-                     <th>Stock</th>
-                     <th>Active</th>
-                     <th>Created</th>
-                     <th>Updated</th>
-                     <th>Actions</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 <tr v-for="prod in products" :key="prod.id">
-                     <td>{{ prod.id }}</td>
-                     <td>{{ prod.name }}</td>
-                     <td>${{ prod.price }}</td>
-                     <td>{{ prod.stock }}</td>
-                     <td>{{ prod.active }}</td>
-                     <td>{{ prod.created_at }}</td>
-                     <td>{{ prod.updated_at }}</td>
-                     <td><button class="btn btn-primary" @click="edit( prod )">Edit</button></td>
-                 </tr>
-             </tbody>
-         </table>
+        <hr>
+        <div class="row" v-if=" this.products.length > 0">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Product name" v-model="filterName">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="button" @click="filterByName()">Search</button>
+                </div>
+            </div>
+            <hr>
+            <table  class="table table-striped table-condensed table-light table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th @click="sortBy('id')"><i :class="this.sort.id.class"></i>  Id</th>
+                        <th @click="sortBy('name')"><i :class="this.sort.name.class"></i> Name</th>
+                        <th @click="sortBy('price')"><i :class="this.sort.price.class"></i> Price</th>
+                        <th>Stock</th>
+                        <th>Active</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="prod in products" :key="prod.id">
+                        <td>{{ prod.id }}</td>
+                        <td>{{ prod.name }}</td>
+                        <td>${{ prod.price }}</td>
+                        <td>{{ prod.stock }}</td>
+                        <td>{{ prod.active }}</td>
+                        <td>{{ prod.created_at }}</td>
+                        <td>{{ prod.updated_at }}</td>
+                        <td><button class="btn btn-primary" @click="edit( prod )">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
     </section>
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
     export default {
         
         data(){
@@ -67,6 +78,8 @@
                 stock: 0,
                 active: 1,
                 products: [],
+                productsOriginal: [],
+                filterName: '',
                 sort:{
                     id: {
                         active: false,
@@ -90,7 +103,7 @@
                 this.$http.get(url).then(response => {
                     // get body data                    
                     this.products = response.body;                
-                    console.log (this.products);
+                    this.productsOriginal = response.body;                
 
                 }, response => {
                     // error callback
@@ -142,8 +155,7 @@
                 this.stock = product.stock;
                 this.active = product.active;
             },
-            sortBy(filter)
-            {
+            sortBy(filter){
                 switch (filter) {
                     case 'id':
                         if(this.sort.id.active){
@@ -191,6 +203,23 @@
                     default:
                         break;
                 }
+            },
+            filterByName(){
+                console.log('filter');
+                if( this.filterName.length > 0){
+                    this.products = this.productsOriginal.filter( x => x.name.includes( this.filterName) );
+
+                    if(this.products.length > 0)
+                        return;
+                }                                        
+                
+                this.products = this.productsOriginal;
+                Swal.fire({
+                    title: 'Alert!',
+                    text: 'None product found.',
+                    icon: 'warning',
+                    confirmButtonText: 'Ok'
+                });
             }
         },
         mounted(){
