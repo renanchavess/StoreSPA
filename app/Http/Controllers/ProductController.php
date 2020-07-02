@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -18,53 +20,43 @@ class ProductController extends Controller
         return response()->json( $products, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+
+        
         $request->validate([
             'name' => 'required|string',
             'price' => 'required',
             'active' => 'required',            
         ]);
 
-        $new = new Product();
-        $new->name = $request->name;
-        $new->price = $request->price;
-        $new->active = (boolean) $request->active;
-        $new->stock = 0;
+        $product = new Product();
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->active = (boolean) $request->active;
+        $product->stock = 0;
 
-        if($new->save())
+        if($product->save())
             return response()->json('sucess', 200);
         else
             return response()->json('error', 500);
 
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
+    
+    public function teste(Request $request)
     {
-        //
+        var_dump($request->get('file'));
+        var_dump($request->file);
+        var_dump($request->file('file'));
+        var_dump($request->allFiles('file'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
+    public function edit(Int $id)
     {
-        //
+        //$product = Product::where('id', $id)->with('images:id,path')->get();
+        $product = Product::where('id', '=', $id)->with('images')->first(); 
+
+        return response()->json( $product, 200);
     }
 
     /**
@@ -91,16 +83,5 @@ class ProductController extends Controller
         }
 
         return response()->json('error', 500);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        //
     }
 }

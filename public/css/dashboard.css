@@ -11,19 +11,50 @@
 
 .menu-bar ul{
     list-style: none;
-    padding-inline-start: 20px;
+    padding-inline-start: 0px;
+    padding: 0px 20px 10px 10px;
+}
+
+.menu-bar hr{
+    background-color: #9b9b9b;
 }
 
 .menu-bar a{
     text-decoration: none;
     font-size: 25px;
+    color: #9b9b9b !important;
+    padding: 5px;
+}
+
+
+.menu-bar a:hover{
+    color: #F1F1F2 !important;
+}
+
+.menu-bar-item-active{
+    
+    background-color: #F1F1F2;
+    border-radius: 5px;    
+}
+.menu-bar-item-active a{
+    color:#3f3f3f !important;
+}
+
+.menu-bar-item-active a:hover{
+    color:#3f3f3f !important;
 }
 
 .menu-icon{
-    height: 80px;
+    height: 105px;
     width: 100%;
-    font-size: 45px;
+    font-size: 30px;
     color: #ffffff;
+}
+
+.menu-icon img{
+    margin-top: 15px;
+    width: 60px;
+    height: auto;
 }
 
 .content-dashboard{
@@ -32,10 +63,11 @@
     height: 100vh;
     padding: 30px;
     overflow: scroll;
+    background-color: #F1F3FA;
 }
 
-#app{
+.dashboard{
     display: grid;
     /* aqui eu defino que o Grid tem Duas colunas uma com width:auto e outra com 50px */
-    grid-template-columns: 240px auto; 
+    grid-template-columns: 200px auto; 
 }

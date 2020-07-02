@@ -19,4 +19,15 @@ class Product extends Model
             'updated_at' => $this->updated_at->format('d-m-y'),
         ];
     }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
+        //return $this->belongs(ProductImage::class, 'ProductIm');
+    }
+
+    public function imagesBelongsTo()
+    {
+        return $this->belongsTo(ProductImage::class);
+    }
 }
