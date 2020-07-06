@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 class Product extends Model
 {
+    protected $appends = array('images');
 
     public function toArray()
     {
@@ -15,19 +16,14 @@ class Product extends Model
             'price' => $this->price,
             'stock' => $this->stock,
             'active' => $this->active,
+            'images' => $this->images->toArray(),
             'created_at' => $this->created_at->format('d-m-y'),
             'updated_at' => $this->updated_at->format('d-m-y'),
         ];
     }
-
+    
     public function images()
     {
-        return $this->hasMany(ProductImage::class, 'product_id', 'id');
-        //return $this->belongs(ProductImage::class, 'ProductIm');
-    }
-
-    public function imagesBelongsTo()
-    {
-        return $this->belongsTo(ProductImage::class);
+        return $this->hasMany(ProductImage::class);
     }
 }

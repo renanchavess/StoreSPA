@@ -54,15 +54,14 @@ import axios from 'axios';
             save(){
                 let url = 'http://localhost/StoreSPA/public/api/product';
 
-                const form = new FormData();
-                form.append('id', this.id);
-                form.append('name', this.name);
-                form.append('price', this.price);
-                form.append('stock', this.stock);
-                form.append('active', this.active);
-
+                let product = {
+                    id: this.id,
+                    name: this.name,
+                    price: this.price,
+                    active: this.active
+                }
                 if(this.id == 0){
-                    axios.post(url, form).then(response => {                                        
+                    this.$http.post(url, product).then(response => {                                        
                         this.clean();
                         this.saved = true;                        
                     }, response => {
@@ -70,14 +69,12 @@ import axios from 'axios';
                     });
                 }
                 else{
-                    this.$http.put(url, form,
-                    {
+                   this.$http.put(url, product, {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
-                    ).then(response => {                                        
-                        this.clean();                        
+                            'Content-Type': 'application/json'
+                        },
+                   }).then(response => {                                        
+                        //this.clean();                        
                         console.log('salvou');
 
                     }, response => {

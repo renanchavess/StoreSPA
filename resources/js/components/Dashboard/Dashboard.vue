@@ -11,7 +11,10 @@
 <script>
 
 import DashboardMenu from './DashboardMenu'
+
 export default {
-    
+    components:{
+        DashboardMenu
+    }    
 }
 </script>

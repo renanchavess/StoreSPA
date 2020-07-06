@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router'
 
-import Home from './components/Home.vue'
+import Store from './components/Site/Store.vue'
+import Home from './components/Site/Home.vue'
+import ProductPage from './components/Site/ProductPage.vue'
+
+
 import ProductCrud from './components/Dashboard/ProductCrud.vue'
 import ProductImageCrud from './components/Dashboard/ProductImageCrud.vue'
 import ProductSearch from './components/Dashboard/ProductSearch.vue'
@@ -16,14 +20,22 @@ export default new Router({
     routes : [
         {
             path: '/',
-            component: Home
+            component: Store
+        },
+        {
+            path: '/store', component: Store, props: true,
+            children: [
+                { path: '/', component: Home },
+                { path: 'product/:id', component: ProductPage, props:true },
+               
+            ]            
         },
         {
             path: '/dashboard', component: Dashboard, props: true,
             children: [
+                { path: '/',component: ProductSearch },
                 { path: 'sales', component: Sales },
                 { path: 'graphics', component: Graphics },
-                { path: '/',component: ProductSearch },
                 { path: 'products',component: ProductSearch },
                 { path: 'products/:id', component: ProductCrud },
                 { path: 'products/:id/images', component: ProductImageCrud, props:true },

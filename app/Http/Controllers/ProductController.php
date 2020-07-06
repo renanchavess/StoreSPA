@@ -6,6 +6,7 @@ use App\Product;
 use App\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\Environment\Console;
 
 class ProductController extends Controller
 {
@@ -20,10 +21,10 @@ class ProductController extends Controller
         return response()->json( $products, 200);
     }
 
+    
+
     public function store(Request $request)
     {
-
-        
         $request->validate([
             'name' => 'required|string',
             'price' => 'required',
@@ -41,14 +42,6 @@ class ProductController extends Controller
         else
             return response()->json('error', 500);
 
-    }
-    
-    public function teste(Request $request)
-    {
-        var_dump($request->get('file'));
-        var_dump($request->file);
-        var_dump($request->file('file'));
-        var_dump($request->allFiles('file'));
     }
 
     public function edit(Int $id)
@@ -68,8 +61,8 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
-        $product = Product::find( $request->id);
-        
+        $product = Product::find($request->id);
+
         if( !empty($product) )
         {
             $product->name = $request->name;

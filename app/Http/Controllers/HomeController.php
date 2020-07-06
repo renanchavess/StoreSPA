@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+use App\ProductImage;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function getProducts()
     {
-        $this->middleware('auth');
+        $products = Product::with('images')
+                            ->has('images')
+                            ->where('active', true)->get();
+
+        
+        //dd($products[0]);
+        return response()->json( $products->toArray(), 200);
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function getProductAllInfo($productId)
     {
-        return view('home');
+        $product = Product::find($productId);
+
+        return response()->Json($product->toArray(), 200);
     }
 }

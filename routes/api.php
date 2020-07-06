@@ -26,5 +26,10 @@ Route::get('/product/{id}', 'ProductController@edit');
 Route::get('/productimage/{id}', 'ProductImageController@getByProductId');
 Route::post('/productimage', 'ProductImageController@store');
 Route::delete('/productimage/{id}', 'ProductImageController@destroy');
-
 Route::resource('product', 'ProductController');
+
+
+Route::get('/home/getProducts', 'HomeController@getProducts');
+Route::get('home/product/{Id}/getAllInfo', 'HomeController@getProductAllInfo');
+
+
