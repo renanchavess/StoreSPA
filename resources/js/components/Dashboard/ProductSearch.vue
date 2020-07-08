@@ -1,6 +1,11 @@
 <template>
 <div class="row" >
-    <div class="input-group mb-3">
+    <router-link             
+            tag="button" 
+            class="btn btn-success" 
+            :to="`/dashboard/products/0`"> <i class="fas fa-plus"></i> New Product
+    </router-link>
+    <div class="input-group mb-3 mt-3">
         <input type="text" class="form-control" placeholder="Product name" v-model="filterName">
         <div class="input-group-append">
             <button class="btn btn-outline-success" type="button" @click="filterByName()">Search</button>

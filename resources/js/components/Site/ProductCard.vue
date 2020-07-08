@@ -1,11 +1,11 @@
 <template>
     
-    <div class="card-group product-card  col-12 col-md-3">
+    <div class="card-group product-card  col-12 col-md-2">
         <router-link style="text-decoration: none;"
         tag="a" 
         class="" 
         :to="`/store/product/${product.id}`">
-            <div class="row card bg-dark text-white img-card-limit">
+            <div class="row card bg-grey-dark text-white img-card-limit">
                 <img :src="'http://localhost/StoreSPA/public/storage/'+this.product.images[0].path" 
                     class="card-img-top img-fluid " alt="Abajur-image"/>
                 <div class="card-body ">
@@ -17,10 +17,12 @@
                         <i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </p>
-                    <h5 class="card-title mt-1"><button type="button" class="btn btn-primary">Conferir</button>
-                    {{ product.price.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</h5>
+                    <h5 class="card-title mt-1">
+                        <button type="button" class="btn btn-primary">Conferir</button>
+                        {{ product.price | money }}
+                    </h5>
                     <h5 class="mt-1">
-                        Até 5x de {{ (product.price / 5).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}
+                        Até 5x de {{ product.price/5 | money }}
                     </h5>
             
                 </div>

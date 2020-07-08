@@ -33,10 +33,10 @@
                 <label for="">Quantidade</label>
                 <div class=" row">
                     <div class="col-3 col-lg-2">
-                        <input type="number" class="form-control" value="1">
+                        <input type="number" class="form-control" v-model="quantity">
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-green">Adicionar no Carrinho</button>
+                        <button class="btn btn-green" @click="addToCart()">Adicionar no Carrinho</button>
                     </div>
                 </div>   
             </div>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
     export default {
         data(){
             return {
@@ -65,10 +65,14 @@
                     stock: 0,
                     images: []
                 },
+                quantity: 1,
                 imageActive: 0
             }
         },
         methods:{
+            ...mapActions([
+                'addProduct'
+            ]),
             getClass( index){
                 //console.log(index);
                 return index == this.imageActive ? 'active' : '';
@@ -98,11 +102,23 @@
                 .catch( response => {
                     console.log('fail get product all info')
                 });
+            },
+            addToCart(){
+                console.log(this.product.id,)
+                let produto = {
+                    id: this.product.id,
+                    name: this.product.name,
+                    quantity:  this.quantity,
+                    price: this.product.price
+                }
+                //this.$store.commit('addProduct', product)
+                this.addProduct(produto);
             }
         },
         mounted(){
             this.getProduct();
-        }
+            this.$store.state.loading = true;
+        },
     }
 </script>
 

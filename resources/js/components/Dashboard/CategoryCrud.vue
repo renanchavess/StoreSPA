@@ -1,0 +1,105 @@
+<template>
+    <div>
+        <div class="form-group">
+            <h1>Category id: {{ this.id }}</h1>
+            <label for="">Name</label>
+            <input type="text" name="" id="" class="form-control input" v-model="name">
+        </div>
+
+        <button type="button" @click="save()" class="btn btn-success">Save</button>
+        <button type="button" @click="clean()" class="btn btn-danger">Clean</button>
+        <div class="row" v-if="this.categories.length > 0">
+            <table class=" mt-2 table table-condensed table-hover table-striped">
+                <thead class=" thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Criado</th>
+                        <th>Atualizado</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(category, index) in this.categories" :key="index">
+                        <td>{{ category.id }}</td>                        
+                        <td>{{ category.name }}</td>                        
+                        <td>{{ category.created_at }}</td>                        
+                        <td>{{ category.updated_at }}</td>
+                        <td>
+                            <button class="btn btn-outline-dark" @click="edit(index)">Edit</button>
+                        </td>                    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data(){
+        return {
+            id: 0,
+            name: '',
+            categories: []
+        }
+    },
+    methods: {
+        save(){            
+            let url = 'http://localhost/StoreSPA/public/api/category'
+            let category = {
+                id: this.id,
+                name: this.name
+            }
+
+            if(this.id == 0)
+            {
+                this.$http.post(url, category)
+                .then( response => {
+                    console.log(repsonse.body)
+                    this.clean();
+                })
+                .catch( response => {
+                    console.log( response.body)
+                });
+            }
+            else
+            {
+                this.$http.put(url, category)
+                .then( response => {
+                    console.log(repsonse.body)
+                    this.clean();
+                })
+                .catch( response => {
+                    console.log( response.body)
+                });
+            }
+            
+            this.getCategories();
+            
+        },
+        clean(){
+            this.id = 0
+            this.name = ''
+        },
+        getCategories(){
+            let url = 'http://localhost/StoreSPA/public/api/category'
+
+            this.$http.get(url)
+            .then( response => {
+                this.categories = response.body
+            })
+            .catch( response => {
+                console.log( response.body)
+            });
+        },
+        edit(index){
+            this.id = this.categories[index].id
+            this.name = this.categories[index].name
+        }
+    },
+    mounted(){
+        this.getCategories();
+    }
+}
+</script>
