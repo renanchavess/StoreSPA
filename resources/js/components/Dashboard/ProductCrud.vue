@@ -73,8 +73,10 @@ import axios from 'axios';
                     id: this.id,
                     name: this.name,
                     price: this.price,
-                    active: this.active
+                    active: this.active,
+                    categories: this.categoriesSelected.map(elem => elem.id)
                 }
+
                 if(this.id == 0){
                     this.$http.post(url, product).then(response => {                                        
                         this.clean();

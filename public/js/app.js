@@ -2302,7 +2302,10 @@ __webpack_require__.r(__webpack_exports__);
         id: this.id,
         name: this.name,
         price: this.price,
-        active: this.active
+        active: this.active,
+        categories: this.categoriesSelected.map(function (elem) {
+          return elem.id;
+        })
       };
 
       if (this.id == 0) {

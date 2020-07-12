@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use App\ProductImage;
 use Illuminate\Http\Request;
@@ -28,19 +29,37 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required',
-            'active' => 'required',            
+            'active' => 'required',
+            'categories' => 'required'
         ]);
 
-        $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->active = (boolean) $request->active;
-        $product->stock = 0;
+        try {
 
-        if($product->save())
+            $product = new Product();
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->active = (boolean) $request->active;
+            $product->stock = 0;
+            $categories = $request->categories;
+
+            DB::beginTransaction();
+            $product->save();
+            $product->categories()->sync($categories);                                
+            DB::commit();
+
+            return response()->json('sucess', 200);
+            
+        } catch (\Throwable $th) {
+            
+            DB::rollBack();
+            return response()->json('error', 500);
+            
+        }
+
+        /*if($product->save())
             return response()->json('sucess', 200);
         else
-            return response()->json('error', 500);
+            return response()->json('error', 500);*/
 
     }
 
@@ -68,8 +87,9 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->price = $request->price;           
             $product->active = $request->active;
+            $categories = $request->categories;
             
-            if($product->save())
+            if($product->save() && $product->categories()->sync($categories))            
                 return response()->json('success', 200);
             else
                 return response()->json('success', 400);
