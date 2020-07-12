@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="form-group">
-            <h1>Category id: {{ this.id }}</h1>
-            <label for="">Name</label>
-            <input type="text" name="" id="" class="form-control input" v-model="name">
-        </div>
-
+        <h1>Categoria id: {{ this.id }}</h1>
+        <div class="form-group">            
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control input" v-model="name">
+        </div>    
+        
         <button type="button" @click="save()" class="btn btn-success">Save</button>
         <button type="button" @click="clean()" class="btn btn-danger">Clean</button>
         <div class="row" v-if="this.categories.length > 0">

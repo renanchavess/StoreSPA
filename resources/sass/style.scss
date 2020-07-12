@@ -6,6 +6,9 @@ $theme-colors: (
     "black": #000000
 );
 
-
+.bg-gradient{
+    //background: linear-gradient(#2B3238,#c9c9c9,#ffffff,#ffffff, #ffffff);
+    //width: 100%;
+}
 @import "~bootstrap/scss/bootstrap";
 @import "~sweetalert2/src/sweetalert2";

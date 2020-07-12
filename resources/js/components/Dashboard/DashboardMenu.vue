@@ -8,28 +8,28 @@
         <ul>
 
             <router-link to="/dashboard/products" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
-                <a><i class="fas fa-box"></i> Products</a>
+                <a><i class="fas fa-box"></i> Produtos</a>
             </router-link>
 
 
             <router-link to="/dashboard/category" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
-                <a href="#"><i class="fas fa-layer-group"></i> Category</a>
+                <a href="#"><i class="fas fa-layer-group"></i> Categorias</a>
             </router-link>
 
             <router-link to="/dashboard/graphics" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
-                <a><i class="fas fa-chart-bar"></i> Graphics</a>
+                <a><i class="fas fa-chart-bar"></i> Gráficos</a>
             </router-link>
             <router-link to="/dashboard/sales" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
-                <a><i class="fas fa-funnel-dollar"></i> Sales</a>
+                <a><i class="fas fa-funnel-dollar"></i> Vendas</a>
             </router-link>
             
 
             
-            <li class="menu-bar-item"><a href="#"><i class="fas fa-cubes"></i> Stock</a></li>
-            <li class="menu-bar-item"><a href="#"><i class="fas fa-percent"></i> Promotion</a></li>
+            <li class="menu-bar-item"><a href="#"><i class="fas fa-cubes"></i> Estoque</a></li>
+            <li class="menu-bar-item"><a href="#"><i class="fas fa-percent"></i> Promoções</a></li>
             
-            <li class="menu-bar-item"><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
-            <li class="menu-bar-item"><a href="#"><i class="fas fa-sticky-note"></i> Reports</a></li>
+            <li class="menu-bar-item"><a href="#"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
+            <li class="menu-bar-item"><a href="#"><i class="fas fa-sticky-note"></i> Relatórios</a></li>
 
             
 

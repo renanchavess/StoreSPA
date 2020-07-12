@@ -1,9 +1,9 @@
 <template>
     <div>
-        <table class="table table table-condensed table-bordered">
+        <table class="table table table-condensed table-bordered mt-2">
             <thead>
                 <tr  class="text-center">
-                    <th colspan="4">Produtos</th>                    
+                    <th colspan="4"> <h2> Produtos</h2></th>                    
                 </tr>            
             </thead>
             <tbody v-if="products.length > 0">                
@@ -19,6 +19,14 @@
             </tbody>
             <tbody v-else>
                 <tr>
+                   <td colspan="4" class="text-center">
+                       <img src="http://localhost/StoreSPA/public/images/empty-shopping-cart-icon.png" alt="cart empty image">
+                    </td> 
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-center"> <h3> Carrinho vazio!</h3></td>
+                </tr>
+                <tr>
                     <td colspan="4" class="text-right"> <span class="text-bold"><b>Total</b></span> {{ amount | money }}</td>
                 </tr>
             </tbody>
@@ -32,7 +40,9 @@ import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 export default {
     computed:{
-        ...mapState(['products']),
+        ...mapState({
+            products: state => state.cart.products
+        }),
         ...mapGetters([ 'amount' ]),
     },
 }

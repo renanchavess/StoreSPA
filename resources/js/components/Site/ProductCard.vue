@@ -1,6 +1,6 @@
 <template>
     
-    <div class="card-group product-card  col-12 col-md-2">
+    <div class="card-group product-card mx-4 my-2 product-card">
         <router-link style="text-decoration: none;"
         tag="a" 
         class="" 
@@ -53,13 +53,15 @@
 
 <style scoped>
     img{
-        max-height: 250px;
+        height: 300px;
+        width: auto;
     }
 
     .product-card{        
         margin: 5px;
         box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
         text-align: center;
+        width: 275px;
     }
     .product-price{        
         font-size: 35px;

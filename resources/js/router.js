@@ -5,7 +5,9 @@ import Store from './components/Site/Store.vue'
 import Home from './components/Site/Home.vue'
 import ProductPage from './components/Site/ProductPage.vue'
 import Cart from './components/Site/Cart.vue'
+import Login from './components/Auth/Login.vue'
 
+import UserPanel from './components/UserPanel/UserPanel.vue'
 
 import ProductCrud from './components/Dashboard/ProductCrud.vue'
 import ProductImageCrud from './components/Dashboard/ProductImageCrud.vue'
@@ -19,7 +21,7 @@ import Dashboard from './components/Dashboard/Dashboard.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'hash',
     routes : [
         { 
@@ -30,7 +32,9 @@ export default new Router({
             children: [
                 { path: '/', component: Home },
                 { path: 'product/:id', component: ProductPage, props:true },
-                { path: 'cart', component: Cart },               
+                { path: 'cart', component: Cart },             
+                { path: 'login', component: Login },
+                { path: 'panel', component: UserPanel},
             ]            
         },
         {
@@ -47,5 +51,14 @@ export default new Router({
             ]            
         }
 
-    ]
+    ],
 })
+
+router.beforeEach((to, from, next) => {
+    if(to.path == '/store/login' && localStorage.getItem('auth-token') !== null )
+        next('/store/panel')
+    else
+        next()
+})
+
+export default router;

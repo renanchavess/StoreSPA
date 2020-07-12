@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="row">
         <div class="col-12 col-lg-6 ">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -22,8 +23,8 @@
                 </a>
             </div>
         </div>
-        <div class="col-12 col-lg-6 align-middle">
-            <h2>{{ this.product.name }}</h2>
+        <div class="col-12 col-lg-6 align-middle mt-lg-5">
+            <h2 class="mt-lg-5">{{ this.product.name }}</h2>
             <h4>Nota média: 4.8/5.0</h4>
             <h5>
                 <span v-if="this.product.stock > 0" class="badge badge-green text-wrap">Disponível em estoque</span>
@@ -51,6 +52,8 @@
         </div>
         
     </div>
+</div>
+    
 </template>
 
 <script>
@@ -117,7 +120,7 @@ import { mapActions } from 'vuex'
         },
         mounted(){
             this.getProduct();
-            this.$store.state.loading = true;
+           
         },
     }
 </script>

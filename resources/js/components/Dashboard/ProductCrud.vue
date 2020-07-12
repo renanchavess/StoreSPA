@@ -1,32 +1,45 @@
 <template>
     <section class="row-fluid">
-        <button type="button" class="btn btn-secondary" @click="back()"><i class="fas fa-long-arrow-alt-left"></i> Back</button>  
-        <button type="button" class="btn btn-success" @click="save()" ><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-secondary" @click="back()"><i class="fas fa-long-arrow-alt-left"></i> Voltar</button>  
+        <button type="button" class="btn btn-success" @click="save()" ><i class="far fa-save"></i> Salvar</button>
         
         <router-link 
                 v-if="this.id > 0"
                 tag="button" 
                 class="btn btn-info" 
-                :to="`/dashboard/products/${this.id}/images`"><i class="fas fa-camera-retro"></i> Images
+                :to="`/dashboard/products/${this.id}/images`"><i class="fas fa-camera-retro"></i> Imagens
         </router-link>
         <hr>
-        <h3>Product id: {{ id }}</h3>
+        <h3>Produto id: {{ id }}</h3>
         <form action="">
             <div class="form-group">
-                <label for="">Name</label>
+                <label for="">Nome</label>
                 <input type="text" class="form-control" name="" id="" v-model="name">
             </div>
             <div class="form-group" > 
-                <label for="">Status</label>
+                <label for="">Ativo</label>
                 <select v-model="active" class="form-control">
-                    <option value="1">Enabled</option>
-                    <option value="0">Disabled</option>
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="">Price</label>
+                <label for="">Preço</label>
                 <input type="text" class="form-control" name="" id="" v-model="price">
+            </div>
+
+            <div class="form-group">
+                <label for="">Categorias Disponíveis</label>
+                <select name="categories[]" id="" multiple class="form-control">
+                    <option v-for="(category, index) in categories" :key="index" @click="toSelected(index)" >{{category.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Categorias Selecionadas</label>
+                <select name="categories[]" id="" multiple class="form-control">
+                    <option v-for="(category, index) in categoriesSelected" :key="index" @click="toDisponible(index)" >{{category.name}}</option>
+                </select>
             </div>
         </form>        
     </section>
@@ -46,7 +59,9 @@ import axios from 'axios';
                 price: 0.0,
                 stock: 0,
                 active: 1,                
-                saved : false,
+                saved : true,
+                categories: [],
+                categoriesSelected: []
             }
         },
        
@@ -115,7 +130,24 @@ import axios from 'axios';
                     // error callback
                     console.log('error get list products');
                 });
-            },                                    
+            },
+            getCategories(){
+
+                this.$http.get(this.$urls.categories.all).then(response => {
+                    this.categories = response.body;
+                }, response => {
+                    // error callback
+                    console.log('error get all Cateories');
+                });
+            },
+            toSelected(index){
+                this.categoriesSelected.push( this.categories[index] )
+                this.categories.splice(index, 1)
+            },
+            toDisponible(index){
+                this.categories.push( this.categoriesSelected[index] )
+                this.categoriesSelected.splice(index, 1)
+            }
         },
         beforeRouteLeave(to, from, next){
             if( this.saved )
@@ -130,7 +162,8 @@ import axios from 'axios';
         mounted: function(){
             console.log('mounted');
             
-            this.getProduct();   
+            this.getProduct();
+            this.getCategories();
                 
         },
         beforeCreate: function(){

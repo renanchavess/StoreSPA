@@ -2,7 +2,7 @@
     <div>
         <menu-bar></menu-bar>
         
-        <router-view class="container-fluid justify-content-md-center"/>
+        <router-view class="container-fluid bg-gradient"/>
     </div>
 </template>
 
@@ -11,6 +11,9 @@ import MenuBar from "./Menu.vue";
 export default {
     components:{
         MenuBar
+    },
+    mounted(){
+        
     }
 }
 </script>

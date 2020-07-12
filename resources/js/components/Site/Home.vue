@@ -1,6 +1,9 @@
 <template>
-    <div class="row">        
-        <product-card v-for="product in this.products" :key="product.id"  :product="product"></product-card>        
+    <div class="">
+        <div class="row justify-content-center">
+            <product-card v-for="product in this.products" :key="product.id"  :product="product"></product-card>  
+        </div>    
+              
     </div>    
 </template>
 
