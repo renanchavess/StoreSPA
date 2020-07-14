@@ -18,6 +18,8 @@ import CategoryCrud from './components/Dashboard/CategoryCrud.vue'
 import Sales from './components/Dashboard/Sales.vue'
 import Graphics from './components/Dashboard/GraphicsPage.vue'
 import Dashboard from './components/Dashboard/Dashboard.vue'
+import PaymentPlan from './components/Dashboard/PaymentPlan/PaymentPlan.vue'
+import PaymentPlanSearch from './components/Dashboard/PaymentPlan/PaymentPlanSearch.vue'
 
 Vue.use(Router)
 
@@ -47,7 +49,9 @@ const router = new Router({
                 { path: 'products/:id', component: ProductCrud },
                 { path: 'products/:id/images', component: ProductImageCrud, props:true },
 
-                { path: 'category', component: CategoryCrud, props: true}
+                { path: 'category', component: CategoryCrud, props: true},
+                { path: 'paymentplan', component: PaymentPlanSearch},
+                { path: 'paymentplan/:id', component: PaymentPlan, props: true},
             ]            
         }
 

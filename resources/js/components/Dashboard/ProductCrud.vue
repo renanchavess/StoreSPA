@@ -12,35 +12,38 @@
         <hr>
         <h3>Produto id: {{ id }}</h3>
         <form action="">
-            <div class="form-group">
-                <label for="">Nome</label>
-                <input type="text" class="form-control" name="" id="" v-model="name">
-            </div>
-            <div class="form-group" > 
-                <label for="">Ativo</label>
-                <select v-model="active" class="form-control">
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
-                </select>
-            </div>
+            <div class="row">
+                <div class="form-group col-12 col-lg-4">
+                    <label for="">Nome</label>
+                    <input type="text" class="form-control" name="" id="" v-model="name">
+                </div>
+                <div class="form-group col-12 col-lg-4" > 
+                    <label for="">Ativo</label>
+                    <select v-model="active" class="form-control">
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="">Preço</label>
-                <input type="text" class="form-control" name="" id="" v-model="price">
-            </div>
+                <div class="form-group col-12 col-lg-4">
+                    <label for="">Preço</label>
+                    <input type="text" class="form-control" name="" id="" v-model="price">
+                </div>
 
-            <div class="form-group">
-                <label for="">Categorias Disponíveis</label>
-                <select name="categories[]" id="" multiple class="form-control">
-                    <option v-for="(category, index) in categories" :key="index" @click="toSelected(index)" >{{category.name}}</option>
-                </select>
+                <div class="form-group col-12 col-lg-6">
+                    <label for="">Categorias Disponíveis</label>
+                    <select name="categories[]" id="" multiple class="form-control">
+                        <option v-for="(category, index) in categories" :key="index" @click="toSelected(index)" >{{category.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-12 col-lg-6">
+                    <label for="">Categorias Selecionadas</label>
+                    <select name="categories[]" id="" multiple class="form-control">
+                        <option v-for="(category, index) in categoriesSelected" :key="index" @click="toDisponible(index)" >{{category.name}}</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="">Categorias Selecionadas</label>
-                <select name="categories[]" id="" multiple class="form-control">
-                    <option v-for="(category, index) in categoriesSelected" :key="index" @click="toDisponible(index)" >{{category.name}}</option>
-                </select>
-            </div>
+            
         </form>        
     </section>
 </template>
@@ -80,9 +83,10 @@ import axios from 'axios';
                 if(this.id == 0){
                     this.$http.post(url, product).then(response => {                                        
                         this.clean();
-                        this.saved = true;                        
+                        this.getProduct();
+                        this.$swal.fire(this.$swalEffects.save.success);
                     }, response => {
-                        console.log('error store');
+                        this.$swal.fire(this.$swalEffects.save.error);
                     });
                 }
                 else{
@@ -90,11 +94,12 @@ import axios from 'axios';
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                   }).then(response => {                                        
-                        //this.clean();                        
+                   }).then(response => {              
+                        this.$swal.fire(this.$swalEffects.save.success);
                         console.log('salvou');
 
                     }, response => {
+                        this.$swal.fire(this.$swalEffects.save.error);
                         console.log('error update');
                     });
                 }
@@ -125,8 +130,9 @@ import axios from 'axios';
                         this.price = response.body.price
                         this.stock = response.body.stock
                         this.active = response.body.active
+                        this.categoriesSelected = response.body.categories
                     }
-                    
+                    this.getCategories();
                     this.$loading.hide();
                 }, response => {
                     // error callback
@@ -136,7 +142,10 @@ import axios from 'axios';
             getCategories(){
 
                 this.$http.get(this.$urls.categories.all).then(response => {
-                    this.categories = response.body;
+                    //difference = arr1.filter(x => !arr2.includes(x));
+
+                    console.log(this.categoriesSelected.map(a => a.id))
+                    this.categories = response.body.filter(x => !this.categoriesSelected.map(a => a.id).includes(x.id))
                 }, response => {
                     // error callback
                     console.log('error get all Cateories');
@@ -165,7 +174,7 @@ import axios from 'axios';
             console.log('mounted');
             
             this.getProduct();
-            this.getCategories();
+            //this.getCategories();
                 
         },
         beforeCreate: function(){

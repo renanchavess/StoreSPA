@@ -3,41 +3,41 @@
     <router-link             
             tag="button" 
             class="btn btn-success" 
-            :to="`/dashboard/products/0`"> <i class="fas fa-plus"></i> Novo Produto
+            :to="`/dashboard/paymentplan/0`"> <i class="fas fa-plus"></i> Novo Plano
     </router-link>
     <div class="input-group mb-3 mt-3">
-        <input type="text" class="form-control" placeholder="Nome do produto" v-model="filterName">
+        <input type="text" class="form-control" placeholder="Nome do produto" v-model="filterDescription">
         <div class="input-group-append">
-            <button class="btn btn-outline-success" type="button" @click="filterByName()">Buscar</button>
+            <button class="btn btn-outline-success" type="button" @click="filterByDescription()">Buscar</button>
         </div>
     </div>
 
-    <table  class="table table-striped table-condensed table-light table-hover mt-2" v-if=" this.products.length > 0">
+    <table  class="table table-striped table-condensed table-light table-hover mt-2" v-if=" this.PaymentPlans.length > 0">
         <thead class="thead-dark">
             <tr>
                 <th @click="sortBy('id')"><i :class="this.sort.id.class"></i>  Id</th>
-                <th @click="sortBy('name')"><i :class="this.sort.name.class"></i> Nome</th>
-                <th @click="sortBy('price')"><i :class="this.sort.price.class"></i> Preço</th>
-                <th>Estoque</th>
+                <th @click="sortBy('description')"><i :class="this.sort.description.class"></i> Descrição</th>
                 <th>Ativo</th>
+                <th>Juros</th>
+                <th>Parcelas</th>
                 <th>Criado</th>
                 <th>Atualizado</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="prod in products" :key="prod.id">
-                <td>{{ prod.id }}</td>
-                <td>{{ prod.name }}</td>
-                <td>{{ prod.price | money}}</td>
-                <td>{{ prod.stock }}</td>
-                <td v-bind:class="getClass(prod.active)" >{{ prod.active ? 'Sim' : 'Não' }}</td>
-                <td>{{ prod.created_at }}</td>
-                <td>{{ prod.updated_at }}</td>                
+            <tr v-for="plan in PaymentPlans" :key="plan.id">
+                <td>{{ plan.id }}</td>
+                <td>{{ plan.description }}</td>
+                <td v-bind:class="getClass(plan.active)" >{{ plan.active ? 'Sim' : 'Não' }}</td>
+                <td>% {{ plan.interest }}</td>
+                <td>{{ plan.installments }}</td>
+                <td>{{ plan.created_at }}</td>
+                <td>{{ plan.updated_at }}</td>                
                 <td>
                     <router-link tag="button" 
                         class="btn btn-outline-secondary" 
-                        :to="`/dashboard/products/${prod.id}`">Editar
+                        :to="`/dashboard/paymentplan/${plan.id}`">Editar
                     </router-link>
                 </td>
             </tr>
@@ -47,28 +47,23 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import ProductImage from './ProductImageCrud.vue';
+
 export default {
 
     data: function(){
         return {            
-            products: [],
-            productsOriginal: [],
-            filterName: '',
+            PaymentPlans: [],
+            PaymentPlansOriginal: [],
+            filterDescription: '',
             sort:{
                 id: {
                     active: false,
                     class: 'fas fa-sort-amount-down-alt'
                 },
-                name: {
+                description: {
                     active: true,
                     class: 'fas fa-minus'
                 },
-                price: {
-                    active: true,
-                    class: 'fas fa-minus'
-                }
             }
         }
     },
@@ -80,44 +75,44 @@ export default {
             switch (filter) {
                 case 'id':
                     if(this.sort.id.active){
-                        this.products.sort( (a, b) => (a.id > b.id) ? 1 : -1 );
+                        this.PaymentPlans.sort( (a, b) => (a.id > b.id) ? 1 : -1 );
                         this.sort.id.class = 'fas fa-sort-amount-down-alt';
                     }                            
                     else{
-                        this.products.sort( (a, b) => (a.id < b.id) ? 1 : -1 );
+                        this.PaymentPlans.sort( (a, b) => (a.id < b.id) ? 1 : -1 );
                         this.sort.id.class = 'fas fa-sort-amount-down';
                     }                                                    
-                    this.sort.name.class = 'fas fa-minus';    
+                    this.sort.description.class = 'fas fa-minus';    
                     this.sort.price.class = 'fas fa-minus';    
                     this.sort.id.active = !this.sort.id.active;
                     break;
 
-                case 'name':
-                    if(this.sort.name.active){
-                        this.products.sort( (a, b) => (a.name > b.name) ? 1 : -1 );
-                        this.sort.name.class = 'fas fa-sort-amount-down-alt';
+                case 'description':
+                    if(this.sort.description.active){
+                        this.PaymentPlans.sort( (a, b) => (a.description > b.description) ? 1 : -1 );
+                        this.sort.description.class = 'fas fa-sort-amount-down-alt';
                     }                            
                     else{
-                        this.products.sort( (a, b) => (a.name < b.name) ? 1 : -1 );
-                        this.sort.name.class = 'fas fa-sort-amount-down';
+                        this.PaymentPlans.sort( (a, b) => (a.description < b.description) ? 1 : -1 );
+                        this.sort.description.class = 'fas fa-sort-amount-down';
                     }                                                    
                     this.sort.id.class = 'fas fa-minus';    
                     this.sort.price.class = 'fas fa-minus';    
-                    this.sort.name.active = !this.sort.name.active;
+                    this.sort.description.active = !this.sort.description.active;
                     break;
                 
                 case 'price':
                     if(this.sort.price.active){
-                        this.products.sort( (a, b) => (a.price > b.price) ? 1 : -1 );
+                        this.PaymentPlans.sort( (a, b) => (a.price > b.price) ? 1 : -1 );
                         this.sort.price.class = 'fas fa-sort-amount-down-alt';
                     }                            
                     else{
-                        this.products.sort( (a, b) => (a.price < b.price) ? 1 : -1 );
+                        this.PaymentPlans.sort( (a, b) => (a.price < b.price) ? 1 : -1 );
                         this.sort.price.class = 'fas fa-sort-amount-down';                            
                     }                               
 
                     this.sort.id.class = 'fas fa-minus';          
-                    this.sort.name.class = 'fas fa-minus';          
+                    this.sort.description.class = 'fas fa-minus';          
                     this.sort.price.active = !this.sort.price.active;
                     break;
             
@@ -125,46 +120,42 @@ export default {
                     break;
             }
         },
-        filterByName(){
+        filterByDescription(){
             console.log('filter');
-            if( this.filterName.length > 0){
-                this.products = this.productsOriginal.filter( x => x.name.includes( this.filterName) );
+            if( this.filterDescription.length > 0){
+                this.PaymentPlans = this.PaymentPlansOriginal.filter( x => x.description.includes( this.filterDescription) );
 
-                if(this.products.length > 0)
+                if(this.PaymentPlans.length > 0)
                     return;
             }                                        
             
-            this.products = this.productsOriginal;
-            Swal.fire({
+            this.PaymentPlans = this.PaymentPlansOriginal;
+            this.$swal.fire({
                 title: 'Alert!',
-                text: 'None product found.',
+                text: 'None payment plans found.',
                 icon: 'warning',
                 confirmButtonText: 'Ok'
             });
         },
-        getProducts: function (){
+        getPaymentPlans: function (){
 
-            let url = 'http://localhost/StoreSPA/public/api/product';
-            this.$http.get(url).then(response => {
+            this.$http.get(this.$urls.api.paymentPlan.get.all).then(response => {
                 // get body data                    
-                this.products = response.body;                
-                this.productsOriginal = response.body;                
+                this.PaymentPlans = response.body;                
+                this.PaymentPlansOriginal = response.body;                
             this.$loading.hide();
 
             }, response => {
                 // error callback
-                console.log('error get list products');
+                console.log('error get list PaymentPlans');
             });
         },
-        edit: function ( id ){
-            this.$router.push('/products/'+id)
-        }
         
     },
     
     mounted(){
         console.log('search mounted');
-        this.getProducts();      
+        this.getPaymentPlans();      
     },
     beforeCreate: function(){
         this.$loading.show({ background: '#343A40', color: '#F1F3FA' });

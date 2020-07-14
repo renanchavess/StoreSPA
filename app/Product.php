@@ -17,6 +17,7 @@ class Product extends Model
             'stock' => $this->stock,
             'active' => $this->active,
             'images' => $this->images->toArray(),
+            'categories' => $this->categories->toArray(),
             'created_at' => $this->created_at->format('d-m-y'),
             'updated_at' => $this->updated_at->format('d-m-y'),
         ];

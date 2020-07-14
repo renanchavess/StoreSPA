@@ -103,6 +103,8 @@ export default {
 
             if(this.photosDelete.length > 0)
                 this.deleteFile();
+
+            this.$swal.fire(this.$swalEffects.save.success);
         },
         uploadFile(){
             let url = 'http://localhost/StoreSPA/public/api/productimage';

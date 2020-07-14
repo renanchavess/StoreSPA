@@ -37,6 +37,7 @@ Route::delete('/productimage/{id}', 'ProductImageController@destroy');
 
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
+Route::resource('paymentplan', 'PaymentPlanController');
 
 
 Route::get('/home/getProducts', 'HomeController@getProducts');

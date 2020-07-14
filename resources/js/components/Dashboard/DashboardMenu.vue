@@ -7,18 +7,39 @@
         <hr>
         <ul>
 
-            <router-link to="/dashboard/products" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
+            <router-link to="/dashboard/products" 
+                active-class="menu-bar-item-active" 
+                class="menu-bar-item"
+                title="Produtos"
+                tag="li">
                 <a><i class="fas fa-box"></i> Produtos</a>
             </router-link>
 
 
-            <router-link to="/dashboard/category" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
+            <router-link to="/dashboard/category" 
+                active-class="menu-bar-item-active" 
+                class="menu-bar-item"
+                title="Categorias"
+                tag="li">
                 <a href="#"><i class="fas fa-layer-group"></i> Categorias</a>
             </router-link>
 
-            <router-link to="/dashboard/graphics" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
+            <router-link to="/dashboard/graphics" 
+                active-class="menu-bar-item-active" 
+                class="menu-bar-item"
+                title="Gráficos"
+                tag="li">
                 <a><i class="fas fa-chart-bar"></i> Gráficos</a>
             </router-link>
+
+            <router-link to="/dashboard/paymentplan" 
+                active-class="menu-bar-item-active"                 
+                class="menu-bar-item" 
+                tag="li"
+                title="Plano de pagamento">
+                <a><i class="fas fa-money-check-alt"></i> Planos</a>
+            </router-link>
+
             <router-link to="/dashboard/sales" active-class="menu-bar-item-active" class="menu-bar-item" tag="li">
                 <a><i class="fas fa-funnel-dollar"></i> Vendas</a>
             </router-link>
@@ -41,7 +62,10 @@
 </template>
 
 <script>
+    
     export default {
-        
+        mounted(){
+
+        }
     }
 </script>

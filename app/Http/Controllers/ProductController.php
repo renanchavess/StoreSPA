@@ -56,19 +56,14 @@ class ProductController extends Controller
             
         }
 
-        /*if($product->save())
-            return response()->json('sucess', 200);
-        else
-            return response()->json('error', 500);*/
-
     }
 
     public function edit(Int $id)
     {
         //$product = Product::where('id', $id)->with('images:id,path')->get();
-        $product = Product::where('id', '=', $id)->with('images')->first(); 
+        $product = Product::find($id); 
 
-        return response()->json( $product, 200);
+        return response()->json( $product->toArray(), 200);
     }
 
     /**

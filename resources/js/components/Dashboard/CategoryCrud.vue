@@ -56,22 +56,22 @@ export default {
             {
                 this.$http.post(url, category)
                 .then( response => {
-                    console.log(repsonse.body)
+                    this.$swal.fire(this.$swalEffects.save.success)
                     this.clean();
                 })
                 .catch( response => {
-                    console.log( response.body)
+                    this.$swal.fire(this.$swalEffects.save.error)
                 });
             }
             else
             {
                 this.$http.put(url, category)
                 .then( response => {
-                    console.log(repsonse.body)
+                    this.$swal.fire(this.$swalEffects.save.success)
                     this.clean();
                 })
                 .catch( response => {
-                    console.log( response.body)
+                    this.$swal.fire(this.$swalEffects.save.error)
                 });
             }
             
