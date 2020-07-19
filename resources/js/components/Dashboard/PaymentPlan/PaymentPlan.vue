@@ -115,7 +115,7 @@ import axios from 'axios';
                         this.active = response.body.active
                     }
                     
-                    this.$loading.hide();
+                    //this.$loading.hide();
                 }, response => {
                     // error callback
                     console.log('error get list products');

@@ -1,7 +1,7 @@
 <template>
    <nav class="navbar navbar-expand-lg navbar bg-grey-dark">
         <div class="container-xl">
-            <a class="navbar-brand text-green-live" href="#" @click="toHome()">VUE STORE</a>
+            <a class="navbar-brand text-green-live" href="#" @click="toHome()"><i class="fas fa-volleyball-ball"></i> SPORT STORE</a>
             <button class="navbar-toggler collapsed text-green-live" type="button" data-toggle="collapse" data-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars text-green-live"></i>
             </button>

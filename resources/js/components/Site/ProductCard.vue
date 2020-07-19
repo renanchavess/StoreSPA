@@ -6,7 +6,7 @@
         class="" 
         :to="`/store/product/${product.id}`">
             <div class="row card bg-grey-dark text-white img-card-limit">
-                <img :src="'http://localhost/StoreSPA/public/storage/'+this.product.images[0].path" 
+                <img :src=" this.$urls.public.storage.productImagePath(this.product.images[0].path)" 
                     class="card-img-top img-fluid " alt="Abajur-image"/>
                 <div class="card-body ">
                     <h5 class="card-title mt-1 prod-name">{{product.name}}</h5>

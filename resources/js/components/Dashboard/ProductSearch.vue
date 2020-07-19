@@ -143,13 +143,12 @@ export default {
             });
         },
         getProducts: function (){
-
-            let url = 'http://localhost/StoreSPA/public/api/product';
-            this.$http.get(url).then(response => {
+            
+            this.$http.get(this.$urls.api.product.getAll).then(response => {
                 // get body data                    
                 this.products = response.body;                
                 this.productsOriginal = response.body;                
-            this.$loading.hide();
+            //this.$loading.hide();
 
             }, response => {
                 // error callback
@@ -167,7 +166,7 @@ export default {
         this.getProducts();      
     },
     beforeCreate: function(){
-        this.$loading.show({ background: '#343A40', color: '#F1F3FA' });
+        //this.$loading.show({ background: '#343A40', color: '#F1F3FA' });
     }
 }
 </script>

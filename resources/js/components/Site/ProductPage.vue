@@ -1,15 +1,15 @@
 <template>
 <div>
     <div class="row">
-        <div class="col-12 col-lg-6 ">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="col-12 col-lg-6 mt-lg-5">
+            <div id="carouselExampleIndicators" class="carousel carousel-fade" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li  v-for="(image, indexTarget) in product.images" :key="image.id" class="bg-dark" @click="setIndex(indexTarget)"
                     data-target="#carouselExampleIndicators" :data-slide-to="indexTarget" :class="getClass(indexTarget)"></li>                   
                 </ol>
-                <div class="carousel-inner">
-                    <div v-for="(image, index) in product.images" :key="image.id" class="carousel-item" :class="getClass(index)">
-                        <img :src=" 'http://localhost/StoreSPA/public/storage/' + image.path" class="d-block w-100" alt="123">
+                <div class="carousel-inner row">
+                    <div v-for="(image, index) in product.images" :key="image.id" class="carousel-item col-12 col-lg-10" :class="getClass(index)">
+                        <img :src=" urlBase+ 'storage/'+image.path " class="d-block w-100 rounded list-group-item-grey-dark " alt="image-item">
                     </div>
 
                 </div>
@@ -37,7 +37,7 @@
                         <input type="number" class="form-control" v-model="quantity">
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-green" @click="addToCart()">Adicionar no Carrinho</button>
+                        <button class="btn btn-grey-dark" @click="addToCart()">Adicionar no Carrinho</button>
                     </div>
                 </div>   
             </div>
@@ -61,6 +61,7 @@ import { mapActions } from 'vuex'
     export default {
         data(){
             return {
+                urlBase : '',
                 product: {
                     id: this.$route.params.id,
                     name: '',
@@ -95,9 +96,8 @@ import { mapActions } from 'vuex'
                console.log('prev index depois:' + this.imageActive);
             },
             getProduct(){
-                
-                let url = `http://localhost/StoreSPA/public/api/home/product/${this.product.id}/getAllInfo`;
-                this.$http.get(url)
+                                
+                this.$http.get(this.$urls.api.home.getProductById(this.product.id))
                 .then( response => {
                     console.log(response.body);
                     this.product = response.body;
@@ -116,18 +116,21 @@ import { mapActions } from 'vuex'
                 }
                 //this.$store.commit('addProduct', product)
                 this.addProduct(produto);
+                this.$swal.fire(this.$swalEffects.save.successSetTitle('Adicionado!'));
             }
         },
         mounted(){
+            this.urlBase = this.$urls.urlBase
             this.getProduct();
+
+            $('#myCarousel').on('slide.bs.carousel', function () {
+                console.log('teste');
+            })
            
         },
     }
 </script>
 
 <style scoped>
-    img{
-        width:100%;
-        height: auto;
-    }
+    
 </style>

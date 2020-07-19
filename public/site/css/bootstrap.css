@@ -1,5 +1,35 @@
 @charset "UTF-8";
 
+.bg-gradient {
+  background: linear-gradient(to right, #00bb5d, #00ff80, #00bb5d);
+}
+
+.h-body {
+  min-height: 647px;
+}
+
+@media only screen and (min-width: 360px) {
+  .imgCarouselProducts {
+    width: auto;
+    height: 400px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .imgCarouselProducts {
+    height: 600px;
+    overflow: hidden;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .imgCarouselProducts {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

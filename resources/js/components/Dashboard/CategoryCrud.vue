@@ -46,7 +46,7 @@ export default {
     },
     methods: {
         save(){            
-            let url = 'http://localhost/StoreSPA/public/api/category'
+            
             let category = {
                 id: this.id,
                 name: this.name
@@ -54,7 +54,7 @@ export default {
 
             if(this.id == 0)
             {
-                this.$http.post(url, category)
+                this.$http.post(this.$urls.api.category.post, category)
                 .then( response => {
                     this.$swal.fire(this.$swalEffects.save.success)
                     this.clean();
@@ -65,7 +65,7 @@ export default {
             }
             else
             {
-                this.$http.put(url, category)
+                this.$http.put(this.$urls.api.category.put, category)
                 .then( response => {
                     this.$swal.fire(this.$swalEffects.save.success)
                     this.clean();
@@ -83,9 +83,8 @@ export default {
             this.name = ''
         },
         getCategories(){
-            let url = 'http://localhost/StoreSPA/public/api/category'
 
-            this.$http.get(url)
+            this.$http.get(this.$urls.api.category.getAll)
             .then( response => {
                 this.categories = response.body
             })

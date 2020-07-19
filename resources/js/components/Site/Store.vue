@@ -2,7 +2,7 @@
     <div>
         <menu-bar></menu-bar>
         
-        <router-view class="container-fluid bg-gradient"/>
+        <router-view class="container-fluid bg-gradient h-body"/>
     </div>
 </template>
 

@@ -8,31 +8,19 @@ import VueResource from 'vue-resource';
 import VueSweetalert2 from 'vue-sweetalert2';
 import LoadingOverlay from 'vue-swal2-loading-overlay';
 import Vue from 'vue';
+import { urls } from './routerApplication'
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
+
+Vue.prototype.$urls = urls;
 
 Vue.filter('money', value =>{
     return value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 });
 
-const urlBase = 'http://localhost/StoreSPA/public/'
-
-Vue.prototype.$urls = {
-    LOGIN: 'http://localhost/StoreSPA/public/api/auth/login',
-    categories: {
-        all: 'http://localhost/StoreSPA/public/api/category'
-    },
-    api:{
-        paymentPlan:{
-            get:{
-                all: urlBase+'api/paymentPlan',
-                byId: id => { return urlBase + 'api/paymentPlan/'+id+ '/edit' }
-            },
-            post: urlBase+ 'api/paymentPlan',
-            put: id => { return  urlBase + 'api/paymentPlan/'+ id}
-        }
-    }
-}
+Vue.filter('storage', path => {
+    return 'storage/'+ path
+})
 
 Vue.prototype.$swalEffects = {   
     save: {
@@ -42,10 +30,17 @@ Vue.prototype.$swalEffects = {
             showConfirmButton: false,
             timer: 1000
         },
+        successSetTitle(title){
+            return {
+                icon: 'success',
+                title: title,
+                showConfirmButton: false,
+                timer: 1000
+            }
+        },
         error:{
             icon: 'error',
-            title: 'Erro ao salvar',            
-            //timer: 1000
+            title: 'Erro ao salvar',
         }
     }
 }

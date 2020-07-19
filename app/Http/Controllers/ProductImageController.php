@@ -35,7 +35,7 @@ class ProductImageController extends Controller
                 unset($productImage);
             }
         }            
-        return response()->json('sucess', 200);
+        return response()->json('success', 200);
     }
 
     public function destroy($id)

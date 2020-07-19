@@ -70,7 +70,6 @@ import axios from 'axios';
        
         methods:{
             save(){
-                let url = 'http://localhost/StoreSPA/public/api/product';
 
                 let product = {
                     id: this.id,
@@ -81,7 +80,7 @@ import axios from 'axios';
                 }
 
                 if(this.id == 0){
-                    this.$http.post(url, product).then(response => {                                        
+                    this.$http.post(this.$urls.api.product.post, product).then(response => {                                        
                         this.clean();
                         this.getProduct();
                         this.$swal.fire(this.$swalEffects.save.success);
@@ -90,7 +89,7 @@ import axios from 'axios';
                     });
                 }
                 else{
-                   this.$http.put(url, product, {
+                   this.$http.put(this.$urls.api.product.put, product, {
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -117,9 +116,8 @@ import axios from 'axios';
                 this.$router.push('/dashboard/products')
             },
             getProduct(){
-                let url = 'http://localhost/StoreSPA/public/api/product/'+ this.id;
-               
-                this.$http.get(url).then(response => {
+                console.log(this.$urls.api.product)
+                this.$http.get(this.$urls.api.product.getById(this.id)).then(response => {
                     // get body data       
                     console.log('product load...');
                     if(response.body.id === undefined)
@@ -133,7 +131,7 @@ import axios from 'axios';
                         this.categoriesSelected = response.body.categories
                     }
                     this.getCategories();
-                    this.$loading.hide();
+                    //this.$loading.hide();
                 }, response => {
                     // error callback
                     console.log('error get list products');
@@ -173,12 +171,14 @@ import axios from 'axios';
         mounted: function(){
             console.log('mounted');
             
-            this.getProduct();
-            //this.getCategories();
+            if(this.id > 0)
+                this.getProduct();
+            else
+                this.getCategories();
                 
         },
         beforeCreate: function(){
-            this.$loading.show({ background: '#343A40', color: '#F1F3FA' });
+            //this.$loading.show({ background: '#343A40', color: '#F1F3FA' });
         }
     }
 </script>

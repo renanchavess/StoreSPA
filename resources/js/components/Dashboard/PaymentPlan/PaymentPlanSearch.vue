@@ -158,7 +158,7 @@ export default {
         this.getPaymentPlans();      
     },
     beforeCreate: function(){
-        this.$loading.show({ background: '#343A40', color: '#F1F3FA' });
+        //this.$loading.show({ background: '#343A40', color: '#F1F3FA' });
     }
 }
 </script>

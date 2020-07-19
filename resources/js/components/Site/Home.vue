@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        <div class="row justify-content-center">
+    <div>
+        <div class="row justify-content-center ">
             <product-card v-for="product in this.products" :key="product.id"  :product="product"></product-card>  
         </div>    
               
@@ -21,9 +21,8 @@ import ProductCard from './ProductCard.vue';
         },
         methods: {
             getProducts(){
-
-                let url = 'http://localhost/StoreSPA/public/api/home/getProducts';
-                this.$http.get(url).then( response => {
+                
+                this.$http.get(this.$urls.api.home.getProducts).then( response => {
                     console.log(response.body);
                     this.products = response.body;
                 }).catch( response => {
@@ -37,3 +36,6 @@ import ProductCard from './ProductCard.vue';
         }
     }
 </script>
+<style scoped>
+    
+</style>

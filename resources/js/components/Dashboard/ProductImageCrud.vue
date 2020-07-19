@@ -22,14 +22,14 @@
                     </div>
 
                     <div v-for="(photo,index)  in this.photosSaved" v-bind:key="index" class="photo-group">
-                        <img :src=" 'http://localhost/StoreSPA/public/storage/'+photo.path" alt="" class="imagem-item" @click="selectPhoto(index)">
+                        <img :src=" photo.path | storage " alt="" class="imagem-item" @click="selectPhoto(index)">
                         <button type="button" class="btn badge btn-danger " @click="addToDelete(index)">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </div>
                 <div class="photo-selected" v-if="uriSelected">
-                    <img :src="uriSelected" alt="" class="image-selected">
+                    <img :src="uriSelected | storage" alt="" class="image-selected">
                 </div>                            
             </div>
                                 
@@ -53,18 +53,15 @@ export default {
     },
     methods:{
         getProductImages(){
-
-            console.log('images load...');
-            console.log('productId: '+ this.productId);
-            let url = 'http://localhost/StoreSPA/public/api/productimage/'+ this.productId;
-            
-            this.$http.get(url).then(response => {     
+            console.log(this.$urls)
+            let url = this.$urls.api.product.getImages(this.productId)
+            this.$http.get( url ).then(response => {     
                 console.log('images load...');               
                 console.log(response.body);
                 
                 this.photosSaved = response.body;
 
-                this.uriSelected = 'http://localhost/StoreSPA/public/storage/'+ this.photosSaved[0].path;
+                this.uriSelected = this.photosSaved[0].path
             }, response => {
                 console.log('error get list image');
             });
@@ -93,7 +90,7 @@ export default {
         selectPhoto(index){
             console.log('change');
             console.log(this.photos[index]);
-            this.photoSelected = this.photos[index];
+            this.photoSelected = this.photosSaved[index];
             this.uriSelected = this.photoSelected.uriImg;
             console.log(this.photoSelected.uriImg);
         },
@@ -107,7 +104,6 @@ export default {
             this.$swal.fire(this.$swalEffects.save.success);
         },
         uploadFile(){
-            let url = 'http://localhost/StoreSPA/public/api/productimage';
 
             const config = {
                 headers: { 'content-type': 'multipart/form-data' }
@@ -119,7 +115,7 @@ export default {
                 formData.append('files[]', this.photos[i]);                    
             }
             
-            axios.post(url, formData, config)
+            axios.post( this.$urls.api.productImage.post, formData, config )
             .then(function (response) {
                 console.log('upload Sucess');
             })

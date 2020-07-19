@@ -7,8 +7,35 @@ $theme-colors: (
 );
 
 .bg-gradient{
-    //background: linear-gradient(#2B3238,#c9c9c9,#ffffff,#ffffff, #ffffff);
+    background: linear-gradient(to right,#00bb5d, #00ff80,#00bb5d);
     //width: 100%;
+}
+
+.h-body{
+    min-height: 647px;
+}
+
+
+@media only screen and (min-width: 360px) {
+    .imgCarouselProducts{
+            width:auto;
+            height: 400px;
+        }
+}
+
+@media only screen and (min-width: 1024px) {
+    .imgCarouselProducts{
+            height: 600px;
+            overflow: hidden;
+        }
+}
+
+@media only screen and (min-width: 1400px) {
+    .imgCarouselProducts{
+        width:100%;
+        height: auto;
+        overflow: hidden;
+    }
 }
 @import "~bootstrap/scss/bootstrap";
 @import "~sweetalert2/src/sweetalert2";

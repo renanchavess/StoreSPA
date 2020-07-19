@@ -6,6 +6,8 @@ import Home from './components/Site/Home.vue'
 import ProductPage from './components/Site/ProductPage.vue'
 import Cart from './components/Site/Cart.vue'
 import Login from './components/Auth/Login.vue'
+import Register from './components/Auth/Register.vue'
+import CheckOut from './components/Site/CheckOut.vue'
 
 import UserPanel from './components/UserPanel/UserPanel.vue'
 
@@ -36,7 +38,9 @@ const router = new Router({
                 { path: 'product/:id', component: ProductPage, props:true },
                 { path: 'cart', component: Cart },             
                 { path: 'login', component: Login },
+                { path: 'register', component: Register },
                 { path: 'panel', component: UserPanel},
+                { path: 'checkout', component: CheckOut},
             ]            
         },
         {
@@ -50,8 +54,8 @@ const router = new Router({
                 { path: 'products/:id/images', component: ProductImageCrud, props:true },
 
                 { path: 'category', component: CategoryCrud, props: true},
-                { path: 'paymentplan', component: PaymentPlanSearch},
-                { path: 'paymentplan/:id', component: PaymentPlan, props: true},
+                { path: 'paymentPlan', component: PaymentPlanSearch},
+                { path: 'paymentPlan/:id', component: PaymentPlan, props: true},
             ]            
         }
 
