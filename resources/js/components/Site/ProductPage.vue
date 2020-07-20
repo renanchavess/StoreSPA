@@ -106,15 +106,15 @@ import { mapActions } from 'vuex'
                     console.log('fail get product all info')
                 });
             },
-            addToCart(){
-                console.log(this.product.id,)
+            addToCart(){               
                 let produto = {
                     id: this.product.id,
                     name: this.product.name,
                     quantity:  this.quantity,
-                    price: this.product.price
+                    price: this.product.price,
+                    product_id: this.product.id
                 }
-                //this.$store.commit('addProduct', product)
+
                 this.addProduct(produto);
                 this.$swal.fire(this.$swalEffects.save.successSetTitle('Adicionado!'));
             }

@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+Vue.config.productionTip = true;
 
 import router from './router.js';
 import { store } from'./Store/store';
@@ -10,9 +11,13 @@ import LoadingOverlay from 'vue-swal2-loading-overlay';
 import Vue from 'vue';
 import { urls } from './routerApplication'
 
-Vue.config.productionTip = true;
+let urlBase = '';
+if(Vue.config.productionTip)
+    urlBase = 'http://store.renanchaves.com/'
+else
+    urlBase = 'http://localhost:8000/' 
 
-Vue.prototype.$urls = urls;
+Vue.prototype.$urls = urls(urlBase);
 
 Vue.filter('money', value =>{
     return value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})

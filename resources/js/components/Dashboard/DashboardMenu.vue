@@ -1,7 +1,7 @@
 <template>
     <nav class="menu-bar bg-dark">
         <div class="menu-icon text-center">
-            <img src="http://localhost/StoreSPA/public/images//user.png" alt="user photo" class="rounded-circle"><br/>
+            <img :src="urlUser" alt="user photo" class="rounded-circle"><br/>
             <span class="align-middle">Renan Chaves</span>
         </div>
         <hr>
@@ -64,6 +64,11 @@
 <script>
     
     export default {
+        data(){
+            return {
+                urlUser: this.$urls.public.images('user.png')
+            }
+        },
         mounted(){
 
         }

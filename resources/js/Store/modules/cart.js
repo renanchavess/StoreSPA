@@ -17,6 +17,9 @@ export default{
     getters:{
         amount(state){
             return state.products.map( p => p.price * p.quantity).reduce( (total, current) => total+current, 0)
+        },
+        getProducts(state){
+            return state.products
         }
     },
     actions: {

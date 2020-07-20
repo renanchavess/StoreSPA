@@ -137,7 +137,7 @@ export default {
                 confirmButtonText: 'Ok'
             });
         },
-        getPaymentPlans: function (){
+        getPaymentPlans(){
 
             this.$http.get(this.$urls.api.paymentPlan.get.all).then(response => {
                 // get body data                    

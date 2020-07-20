@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+
+    public function getAddressByViaCEP($cep)
+    {
+        $cep = preg_replace("[/^0-9]", "", $cep);
+        $xml = simplexml_load_file("http://viacep.com.br/ws/$cep/xml");
+
+        return response()->json($xml, 200);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -1,24 +1,16 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('home')->group(function(){
+    Route::get('getProducts', 'HomeController@getProducts');
+    Route::get('product/{Id}/getAllInfo', 'HomeController@getProductAllInfo');
 });
 
 Route::prefix('auth')->group(function(){
@@ -29,6 +21,7 @@ Route::prefix('auth')->group(function(){
 
 Route::prefix('checkout')->group(function(){
     Route::get('paymentPlans', 'CheckoutController@getPaymentPlans');
+    Route::post('pay', 'CheckoutController@pay');
 });
 
 Route::get('/product', 'ProductController@index');
@@ -44,13 +37,6 @@ Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
 Route::resource('paymentPlan', 'PaymentPlanController');
 
-
-Route::get('/home/getProducts', 'HomeController@getProducts');
-Route::get('home/product/{Id}/getAllInfo', 'HomeController@getProductAllInfo');
-
-Route::get('artisan/execute', function () {
-    echo Artisan::call('passport',['--personal', '-n', '--name[auth]']);
-
-});
+Route::get('viaCep/{cep}', 'AddressController@getAddressByViaCEP');
 
 
